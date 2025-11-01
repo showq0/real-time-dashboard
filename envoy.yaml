@@ -1,0 +1,64 @@
+node:
+  id: envoy_node
+  cluster: envoy_cluster
+
+static_resources:
+  listeners:
+    - name: listener_0
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 8080
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: ingress_http
+                codec_type: AUTO
+                stream_idle_timeout: 0s
+                common_http_protocol_options:
+                  idle_timeout: 0s
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: backend
+                      domains: ["*"]
+                      routes:
+                        - match:
+                            prefix: "/"
+                          route:
+                            cluster: node_backend
+                            max_grpc_timeout: 0s
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+  clusters:
+    - name: node_backend
+      connect_timeout: 1s
+      type: static
+      lb_policy: round_robin
+      common_http_protocol_options:
+        idle_timeout: 3s
+      upstream_connection_options:
+        tcp_keepalive: {}
+      max_requests_per_connection: 0
+      load_assignment:
+        cluster_name: node_backend
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: { address: "127.0.0.1", port_value: 3001 }
+              - endpoint:
+                  address:
+                    socket_address: { address: "127.0.0.1", port_value: 3002 }
+
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address: { address: 127.0.0.1, port_value: 9901 }
+# Run Envoy with explicit concurrency:
+# Example for 8 cores: envoy -c envoy.yaml --concurrency 8

@@ -3,5 +3,3 @@ build
 npm-debug.log
 .env
 .DS_Store
-load-test-1.js
-servers.js
