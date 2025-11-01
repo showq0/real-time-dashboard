@@ -1,7 +1,9 @@
 import express from 'express';
-import pool from './db.js';
+import pool from '../db.js';
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 
 let aggregatedMetrics = {};
@@ -11,7 +13,6 @@ let clients = [];
 function aggregateMetrics(metric) {
   const { server_id, cpu, memory } = metric;
   const now = Date.now();
-
   //create record
   if (!aggregatedMetrics[server_id]) {
     aggregatedMetrics[server_id] = {
@@ -92,7 +93,8 @@ app.post('/ingest',(req, res) => {
         );
       }
     }
-  res.status(200).send({ message: 'Metrics received' });
+    
+  res.status(200).send({ message: 'Metrics received'  ,process: `${process.pid}`});
 });
 
 app.get('/stream', (req, res) => {
@@ -115,4 +117,5 @@ app.get('/stream', (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(PORT, '127.0.0.1', () => console.log(`[Worker ${PORT}] Server running`))
+

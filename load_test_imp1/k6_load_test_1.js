@@ -1,6 +1,6 @@
 import http from 'k6/http';
 
-const INGEST_URL = 'http://localhost:3000/ingest';
+const INGEST_URL = 'http://localhost:8080/ingest';
 
 export const options = {
   scenarios: {
@@ -9,7 +9,7 @@ export const options = {
       rate: 10000,    
       timeUnit: '1s',
       duration: '30s',
-      preAllocatedVUs: 10000,
+      preAllocatedVUs: 1578, //only run a single iteration 
     },
     },
     // threshoulds: {
