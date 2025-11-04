@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package metrics;
+
+import "google/protobuf/timestamp.proto";
+
+message MetricRequest {
+  string client_id = 1;
+  double cpu = 2;
+  double memory = 3;
+  google.protobuf.Timestamp time = 4;
+}
+
+message MetricResponse {
+  string status = 1;
+  string message = 2;
+}
+
+service MetricsService {
+  rpc BiDiStream (stream MetricRequest) returns (stream MetricResponse);
+}
