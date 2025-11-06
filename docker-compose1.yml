@@ -1,0 +1,69 @@
+version: '3.9'
+
+services:
+  implementation1:
+    build:
+      context: ./src/implementation1
+    env_file:
+      - ./src/.env 
+    depends_on:
+      - postgres
+    command: ["node", "index.js"]
+    ports:
+      - "3001:3000"
+    networks:
+      - mynetwork
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mynetwork
+
+  k6_1:
+    image: loadimpact/k6:latest
+    container_name: k6_runner1
+    platform: linux/amd64
+    depends_on:
+      - implementation1
+    volumes:
+      - ./load_test_imp1/k6_load_test_1.js:/k6_load_test_1.js:ro
+    command: run /k6_load_test_1.js
+    networks:
+      - mynetwork
+  k6_2:
+    image: loadimpact/k6:latest
+    container_name: k6_runner2
+    platform: linux/amd64
+    depends_on:
+      - implementation1
+    volumes:
+      - ./load_test_imp1/k6_load_test_1.js:/k6_load_test_1.js:ro
+    command: run /k6_load_test_1.js
+    networks:
+      - mynetwork
+  k6_3:
+    image: loadimpact/k6:latest
+    container_name: k6_runner3
+    platform: linux/amd64
+    depends_on:
+      - implementation1
+    volumes:
+      - ./load_test_imp1/k6_load_test_1.js:/k6_load_test_1.js:ro
+    command: run /k6_load_test_1.js
+    networks:
+      - mynetwork
+
+volumes:
+  pgdata:
+
+networks:
+  mynetwork:
+    driver: bridge
