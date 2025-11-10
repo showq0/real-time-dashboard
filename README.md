@@ -1,6 +1,6 @@
 **Real-Time Analytics Dashboard**
 
-- **Reason for choosing:** : Chose to build a system capable of handling high-throughput data streams from multiple sources, efficiently managing CPU-intensive data aggregation and I/O-heavy tasks like storing historical data, to provide real-time analytics—a common real-world backend challenge.
+- **Reason for choosing:** : Chosen to build a system capable of handling high-throughput data streams from multiple sources, efficiently managing CPU-intensive data aggregation and I/O-heavy tasks like storing historical data, to provide real-time analytics—a common real-world backend challenge.
 
 ---
 
