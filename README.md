@@ -14,7 +14,7 @@ The Real-Time Analytics Dashboard scenario is challenging because aggregating da
 - **Database / Storage:** PostgreSQL, Redis
 - **Load Balancer / Proxy:** Envoy
 - **Containerization:** Docker, Docker Compose
-- **Load Testing:** k6
+- **Load Testing:** k6, ghz
 - **Other Tools:** Prometheus/Grafana (for optional monitoring)
 
 ---
