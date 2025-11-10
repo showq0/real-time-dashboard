@@ -22,16 +22,25 @@ The Real-Time Analytics Dashboard scenario is challenging because aggregating da
 ## Setup Instructions
 
 ```bash
-git clone <repo-url>
-cd your-name-backend-project
+git clone https://github.com/showq0/real-time-dashboard.git
+cd real-time-dashboard
 
 
 ```
 
-Create a .env file then
+Create a .env file 
+### Apply Docker image 
+for implementaion1
 
 ```bash
+ docker-compose -f docker-compose2.yml build 
+
  docker-compose -f docker-compose2.yml up
+```
+for implementaion2
+
+```bash
+ docker-compose -f docker-compose2.ym2 build 
 
  docker-compose -f docker-compose1.yml up
 
