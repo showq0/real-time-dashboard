@@ -1,15 +1,15 @@
 import http from 'k6/http';
 
-const INGEST_URL = 'http://localhost:8080/ingest';
+const INGEST_URL = 'http://implementation1:3000/ingest';
 
 export const options = {
   scenarios: {
     load: {
       executor: 'constant-arrival-rate',
-      rate: 10000,    
+      rate: 3334,    
       timeUnit: '1s',
       duration: '30s',
-      preAllocatedVUs: 1578, //only run a single iteration 
+      preAllocatedVUs: 3334, //only run a single iteration 
     },
     },
     // threshoulds: {

@@ -4,4 +4,12 @@ npm-debug.log
 .env
 .DS_Store
 text.txt
+.env
 src/.env
+src/.env.enc
+
+.DS_Store
+Thumbs.db
+
+dist
+build
