@@ -15,6 +15,8 @@ async function consumeStream() {
   while (true) {
     const res = await redis.xread('BLOCK', 1000, 'STREAMS', 'metrics-raw', lastId);// get the new input metrix that stored in redis
     if (!res) continue;
+    console.log('calculating new metrics from stream.');
+
     const [[, entries]] = res;
 
     for (const [id, fields] of entries) {
@@ -25,7 +27,7 @@ async function consumeStream() {
         memory: parseFloat(fields[5]),
         time: parseInt(fields[7]),
       };
-      liveBuffer.push(metric); // to batch publish live metrics
+      liveBuffer.push(metric);
 
       if (!clientWindows[metric.client_id]) {
         clientWindows[metric.client_id] = {

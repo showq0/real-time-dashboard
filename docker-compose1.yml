@@ -1,18 +1,30 @@
 version: '3.9'
 
 services:
-  implementation1:
+  # envoy:
+  #   image: envoyproxy/envoy:v1.25-latest
+  #   ports:
+  #     - "8080:8080"
+  #   sysctls:
+  #     net.core.somaxconn: 65535
+  #     net.ipv4.ip_local_port_range: "1024 65535"
+  #   volumes:
+  #     - ./envoy.yaml:/etc/envoy/envoy.yaml
+  #   depends_on:
+  #     - worker1
+
+  #   networks:
+  #     - mynetwork
+  worker1:
     build:
       context: ./src/implementation1
     env_file:
-      - ./src/.env 
-    depends_on:
-      - postgres
+      - ./src/.env
     command: ["node", "index.js"]
-    ports:
-      - "3001:3000"
+    environment:
+      - PORT=3001
     networks:
-      - mynetwork
+    - mynetwork
 
   postgres:
     image: postgres:16-alpine
@@ -32,34 +44,14 @@ services:
     container_name: k6_runner1
     platform: linux/amd64
     depends_on:
-      - implementation1
+      - worker1
+      - postgres
     volumes:
-      - ./load_test_imp1/k6_load_test_1.js:/k6_load_test_1.js:ro
-    command: run /k6_load_test_1.js
+      - ./test/loadtest1.js:/loadtest1.js:ro
+    command: run /loadtest1.js
     networks:
       - mynetwork
-  k6_2:
-    image: loadimpact/k6:latest
-    container_name: k6_runner2
-    platform: linux/amd64
-    depends_on:
-      - implementation1
-    volumes:
-      - ./load_test_imp1/k6_load_test_1.js:/k6_load_test_1.js:ro
-    command: run /k6_load_test_1.js
-    networks:
-      - mynetwork
-  k6_3:
-    image: loadimpact/k6:latest
-    container_name: k6_runner3
-    platform: linux/amd64
-    depends_on:
-      - implementation1
-    volumes:
-      - ./load_test_imp1/k6_load_test_1.js:/k6_load_test_1.js:ro
-    command: run /k6_load_test_1.js
-    networks:
-      - mynetwork
+
 
 volumes:
   pgdata:
