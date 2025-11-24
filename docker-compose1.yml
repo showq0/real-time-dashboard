@@ -1,20 +1,6 @@
 version: '3.9'
 
 services:
-  # envoy:
-  #   image: envoyproxy/envoy:v1.25-latest
-  #   ports:
-  #     - "8080:8080"
-  #   sysctls:
-  #     net.core.somaxconn: 65535
-  #     net.ipv4.ip_local_port_range: "1024 65535"
-  #   volumes:
-  #     - ./envoy.yaml:/etc/envoy/envoy.yaml
-  #   depends_on:
-  #     - worker1
-
-  #   networks:
-  #     - mynetwork
   worker1:
     build:
       context: ./src/implementation1
@@ -23,35 +9,32 @@ services:
     command: ["node", "index.js"]
     environment:
       - PORT=3001
+    ports:
+      - "3001:3001"   
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
     - mynetwork
 
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_DB: ${PG_DATABASE}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: real_time_dashboard
     volumes:
-      - pgdata:/var/lib/postgresql/data
+        - pgdata:/var/lib/postgresql/data
+        - ./init-db:/docker-entrypoint-initdb.d 
     ports:
       - "5432:5432"
     networks:
       - mynetwork
-
-  k6_1:
-    image: loadimpact/k6:latest
-    container_name: k6_runner1
-    platform: linux/amd64
-    depends_on:
-      - worker1
-      - postgres
-    volumes:
-      - ./test/loadtest1.js:/loadtest1.js:ro
-    command: run /loadtest1.js
-    networks:
-      - mynetwork
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d real_time_dashboard"]
+      interval: 5s
+      retries: 10
+      timeout: 2s
 
 volumes:
   pgdata:

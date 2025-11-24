@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
 # Copy app source code
 COPY . .
@@ -25,4 +25,4 @@ COPY . .
 EXPOSE 3001
 
 # Run the app
-CMD ["node", "index.js"]
+CMD ["sh", "-c", "./node_modules/.bin/db-migrate up initialize & node index.js"]

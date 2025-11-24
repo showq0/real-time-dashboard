@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  k6_1:
+    image: loadimpact/k6:latest
+    container_name: k6_runner1
+    platform: linux/amd64
+    volumes:
+      - ./test/loadtest1.js:/loadtest1.js:ro
+    command: run /loadtest1.js
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
