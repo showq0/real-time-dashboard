@@ -10,7 +10,7 @@ The Real-Time Analytics Dashboard scenario is challenging because aggregating da
 
 - **Backend:** Node.js (Express)
 - **Protocol:** gRPC, HTTP/1.1, HTTP/2
-- **Message Queue / Streaming:**: bidirectional streaming
+- **Message Queue / Streaming:**:bidirectional streaming
 - **Database / Storage:** PostgreSQL, Redis
 - **Load Balancer / Proxy:** Envoy
 - **Containerization:** Docker, Docker Compose
