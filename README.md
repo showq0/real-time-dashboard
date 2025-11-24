@@ -46,7 +46,7 @@ for implementaion2
 
 ```
 
-## to test implementaion 1
+## Load test implementation 1
 
 ```bash
 brew install k6
@@ -54,7 +54,7 @@ cd test
 k6 run loadtest1.js
 ```
 
-## to test implementaion 2
+## Load test implementation 2
 
 install ghz
 
