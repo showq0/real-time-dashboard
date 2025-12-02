@@ -43,16 +43,16 @@ Create a .env file
 for implementaion1
 
 ```bash
- docker-compose -f docker-compose2.yml build 
+ docker-compose -f docker-compose1.yml build 
 
- docker-compose -f docker-compose2.yml up
+ docker-compose -f docker-compose1.yml up
 ```
 for implementaion2
 
 ```bash
- docker-compose -f docker-compose2.ym2 build 
+ docker-compose -f docker-compose2.yml build 
 
- docker-compose -f docker-compose1.yml up
+ docker-compose -f docker-compose2.yml up
 
 ```
 
