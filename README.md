@@ -5,11 +5,11 @@ The Real-Time Analytics Dashboard scenario is challenging because aggregating da
 
 ## system architecture diagram
 ### APPROACH1
-[image1]<img width="783" height="483" alt="image" src="https://github.com/user-attachments/assets/9baf99b3-77c2-4e5f-984a-489f6c6b84c2" />
+<img width="783" height="483" alt="image" src="https://github.com/user-attachments/assets/9baf99b3-77c2-4e5f-984a-489f6c6b84c2" />
 
 
 ### APPROACH2
-[image2]<img width="688" height="231" alt="Screenshot 2025-12-03 at 12 56 28 AM" src="https://github.com/user-attachments/assets/ac73b23a-eec2-428f-9226-f0d125d6e730" />
+<img width="688" height="231" alt="Screenshot 2025-12-03 at 12 56 28 AM" src="https://github.com/user-attachments/assets/ac73b23a-eec2-428f-9226-f0d125d6e730" />
 
 
 ---
