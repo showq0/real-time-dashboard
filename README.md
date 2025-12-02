@@ -3,20 +3,30 @@
 - **Reason for choosing:** : 
 The Real-Time Analytics Dashboard scenario is challenging because aggregating data from thousands of servers generates high CPU load, involves I/O-intensive tasks like storing historical data, and also requires designing the system to provide real-time updates
 
+## system architecture diagram
+### APPROACH1
+[image1]<img width="783" height="483" alt="image" src="https://github.com/user-attachments/assets/9baf99b3-77c2-4e5f-984a-489f6c6b84c2" />
+
+
+### APPROACH2
+[image2]<img width="688" height="231" alt="Screenshot 2025-12-03 at 12 56 28 AM" src="https://github.com/user-attachments/assets/ac73b23a-eec2-428f-9226-f0d125d6e730" />
+
 
 ---
-
 ## Tech Stack
-
 - **Backend:** Node.js (Express)
-- **Protocol:** gRPC, HTTP/1.1, HTTP/2
-- **Message Queue / Streaming:**:bidirectional streaming
 - **Database / Storage:** PostgreSQL, Redis
-- **Load Balancer / Proxy:** Envoy
 - **Containerization:** Docker, Docker Compose
-- **Load Testing:** k6, ghz
-- **Other Tools:** Prometheus/Grafana (for optional monitoring)
+- **Load Balancer / Proxy:** Envoy
 
+### APPROACH1
+- **Protocol:** HTTP/1.1
+- **Load Testing:** k6
+- 
+### APPROACH2
+- **Protocol:** gRPC, HTTP/2
+- **Message Queue / Streaming:**:bidirectional streaming
+- **Load Testing:** ghz
 ---
 
 ## Setup Instructions
